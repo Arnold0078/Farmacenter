@@ -2,10 +2,29 @@ package co.edu.uptc.persistencia;
 
 public class Producto {
 
+    private int id;
     private String nombre;
     private String marca;
     private int cantidad;
+    private int precio;
     private int codigo;
+    private String tipo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
 
     public String getNombre() {
         return nombre;
@@ -37,6 +56,14 @@ public class Producto {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
