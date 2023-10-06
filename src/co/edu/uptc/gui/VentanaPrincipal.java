@@ -1,4 +1,4 @@
-package co.edu.uptc.gui.ventanas;
+package co.edu.uptc.gui;
 
 import javax.swing.*;
 import java.awt.*;
