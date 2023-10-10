@@ -9,6 +9,8 @@ public class Eventos implements ActionListener {
 
     public static final String REGISTRAR = "REGISTRAR";
     public static final String BUSCAR = "BUSCAR";
+    public static final String AGREGARUNIDADES = "AGREGAR UNIDADES";
+
     private VentanaPrincipal ventanaPrincipal;
     private Administrar administrar;
 

@@ -1,14 +1,12 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.gui.Eventos;
-
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.border.BevelBorder;
 
 public class Botones extends JPanel {
 
     public Botones(Eventos eventos){
-        setBackground(new Color(100,200,200));
+        setOpaque(false);
 
         JButton registrar = new JButton(Eventos.REGISTRAR);
         registrar.setActionCommand(Eventos.REGISTRAR);
@@ -19,5 +17,10 @@ public class Botones extends JPanel {
         buscar.setActionCommand(Eventos.BUSCAR);
         buscar.addActionListener(eventos);
         add(buscar);
+
+        JButton agregarUnidades = new JButton(Eventos.AGREGARUNIDADES);
+        agregarUnidades.setActionCommand(Eventos.BUSCAR);
+        agregarUnidades.addActionListener(eventos);
+        add(agregarUnidades);
     }
 }

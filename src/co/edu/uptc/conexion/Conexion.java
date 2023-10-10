@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 public class Conexion {
 
     private Connection con = null;
-    private String base = "farmacenter";
-    private String url ="jdbc:mysql://localhost:3306/" + base;
-    private String user = "root";
-    private String password = "";
+    private final String base = "farmacenter";
+    private final String url ="jdbc:mysql://localhost:3306/" + base;
+    private final String user = "root";
+    private final String password = "";
 
     public Connection getConexion (){
        try {

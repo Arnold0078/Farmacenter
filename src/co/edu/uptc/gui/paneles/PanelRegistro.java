@@ -7,16 +7,16 @@ import java.awt.*;
 
 public class PanelRegistro extends JPanel{
 
-    private JTextField jxNombre;
-    private JTextField jxMarca;
-    private JTextField jxCantidad;
-    private JTextField jxPrecio;
-    private JTextField jxCodigo;
-    private JTextField jxTipo;
+    private final JTextField jxNombre;
+    private final JTextField jxMarca;
+    private final JTextField jxCantidad;
+    private final JTextField jxPrecio;
+    private final JTextField jxCodigo;
+    private final JTextField jxTipo;
 
     public PanelRegistro(){
         setLayout(new GridLayout(6,2));
-        setBackground(new Color(100,200,200));
+        setOpaque(false);
 
         jxNombre = new JTextField(59);
         jxMarca = new JTextField(59);

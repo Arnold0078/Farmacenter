@@ -1,7 +1,6 @@
 package co.edu.uptc.gui;
 
 import co.edu.uptc.gui.paneles.PanelRegistro;
-import co.edu.uptc.gui.tablas.ModeloTabla;
 import co.edu.uptc.gui.tablas.TablaComerciales;
 import co.edu.uptc.gui.tablas.TablaGeneral;
 import co.edu.uptc.gui.tablas.TablaGenericos;
@@ -11,12 +10,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class VentanaPrincipal extends JFrame{
+public class VentanaPrincipal extends JFrame {
 
-    public VentanaPrincipal(){
+    public VentanaPrincipal() {
         setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/logo.png"));
-        setLayout(new GridLayout(1,2));
-        setSize(1000,600);
+        setLayout(new GridLayout(1, 2));
+        setSize(1000, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Farmacenter");
@@ -30,12 +29,12 @@ public class VentanaPrincipal extends JFrame{
         panel1.setLayout(new BorderLayout());
         PanelRegistro panelRegistro = new PanelRegistro();
         Botones botones = new Botones(eventos);
-        panel1.add(panelRegistro,BorderLayout.CENTER);
+        panel1.add(panelRegistro, BorderLayout.CENTER);
         panel1.add(botones, BorderLayout.SOUTH);
         add(panel1);
 
         JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(3,1));
+        panel2.setLayout(new GridLayout(3, 1));
         TablaGeneral tablaGeneral = new TablaGeneral(administrar);
         TablaComerciales tablaComerciales = new TablaComerciales(administrar);
         TablaGenericos tablaGenericos = new TablaGenericos(administrar);
