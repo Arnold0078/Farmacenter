@@ -12,12 +12,11 @@ public class TablaComerciales extends ModeloTabla{
     public TablaComerciales (Administrar administrar){
         setBorder(new TitledBorder("Productos Comerciales"));
         setBackground(new Color(0,160,180));
-        ArrayList<Producto> lista = administrar.listaProductos();
+        ArrayList<Producto> lista = administrar.listaComerciales();
 
         for (Producto producto: lista) {
-            if (producto.getTipo().equals("COMERCIAL")){
-                guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
-            }
+            guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
+
         }
 
         añadirTabla();

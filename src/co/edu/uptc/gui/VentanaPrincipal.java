@@ -27,7 +27,7 @@ public class VentanaPrincipal extends JFrame {
         panel1.setBackground(new Color(100,200,200));
         panel1.setBorder(new TitledBorder("Registrar producto"));
         panel1.setLayout(new BorderLayout());
-        PanelRegistro panelRegistro = new PanelRegistro();
+        PanelRegistro panelRegistro = new PanelRegistro(administrar);
         Botones botones = new Botones(eventos);
         panel1.add(panelRegistro, BorderLayout.CENTER);
         panel1.add(botones, BorderLayout.SOUTH);

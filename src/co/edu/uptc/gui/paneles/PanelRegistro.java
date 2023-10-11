@@ -1,5 +1,6 @@
 package co.edu.uptc.gui.paneles;
 
+import co.edu.uptc.negocio.Administrar;
 import co.edu.uptc.persistencia.Producto;
 
 import javax.swing.*;
@@ -13,10 +14,13 @@ public class PanelRegistro extends JPanel{
     private final JTextField jxPrecio;
     private final JTextField jxCodigo;
     private final JTextField jxTipo;
+    private final Administrar administrar;
 
-    public PanelRegistro(){
+    public PanelRegistro(Administrar administrar){
         setLayout(new GridLayout(6,2));
         setOpaque(false);
+
+        this.administrar = administrar;
 
         jxNombre = new JTextField(59);
         jxMarca = new JTextField(59);
@@ -90,7 +94,9 @@ public class PanelRegistro extends JPanel{
             JOptionPane.showMessageDialog(null, "Por favor unicamente ingrese en el " +
                     "tipo (COMERCIAL o GENERICO)", null, JOptionPane.WARNING_MESSAGE);
             v = false;
-        }
+        }//else if(administrar.obtenerProducto(codigo).getCodigo == codigo){
+           // JOptionPane.showMessageDialog(null, "El codigo ingresado para el producto ya le pertenece a otro producto", null, JOptionPane.WARNING_MESSAGE);
+        //}
 
         return v;
     }

@@ -12,12 +12,11 @@ public class TablaGenericos extends ModeloTabla{
     public TablaGenericos(Administrar administrar){
         setBorder(new TitledBorder("Productos Genericos"));
         setBackground(new Color(0,150,200));
-        ArrayList<Producto> lista = administrar.listaProductos();
+        ArrayList<Producto> lista = administrar.listaGenericos();
 
         for (Producto producto: lista) {
-            if (producto.getTipo().equals("GENERICO")){
-                guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
-            }
+            guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
+
         }
 
         añadirTabla();
