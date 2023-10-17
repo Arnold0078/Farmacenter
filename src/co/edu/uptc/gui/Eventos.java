@@ -11,6 +11,7 @@ public class Eventos implements ActionListener {
     public static final String BUSCAR = "BUSCAR";
     public static final String AGREGARUNIDADES = "AGREGAR UNIDADES";
 
+
     private VentanaPrincipal ventanaPrincipal;
     private Administrar administrar;
 
@@ -27,6 +28,8 @@ public class Eventos implements ActionListener {
 
         }else if (decision.equals(BUSCAR)){
 
+        }else if(decision.equals(AGREGARUNIDADES)){
+            
         }
     }
 }
