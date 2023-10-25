@@ -1,4 +1,4 @@
-package co.edu.uptc.gui.paneles;
+package co.edu.uptc.gui;
 
 import co.edu.uptc.negocio.Administrar;
 import co.edu.uptc.persistencia.Producto;
@@ -59,7 +59,7 @@ public class PanelRegistro extends JPanel{
                 nuevo.setNombre(jxNombre.getText().toUpperCase());
                 nuevo.setMarca(jxMarca.getText().toUpperCase());
                 nuevo.setCantidad(Integer.parseInt(jxCantidad.getText()));
-                nuevo.setPrecio(Integer.parseInt(jxCantidad.getText()));
+                nuevo.setPrecio(Integer.parseInt(jxPrecio.getText()));
                 nuevo.setCodigo(Integer.parseInt(jxCodigo.getText()));
                 nuevo.setTipo(jxTipo.getText().toUpperCase());
             }
@@ -107,6 +107,7 @@ public class PanelRegistro extends JPanel{
         jxCantidad.setText("");
         jxPrecio.setText("");
         jxCodigo.setText("");
+        jxTipo.setText("");
     }
 
 }

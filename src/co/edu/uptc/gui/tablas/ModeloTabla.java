@@ -3,6 +3,7 @@ package co.edu.uptc.gui.tablas;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 public class ModeloTabla extends JPanel {
 
@@ -23,6 +24,7 @@ public class ModeloTabla extends JPanel {
         modelo.addColumn("Codigo");
         tabla.setModel(modelo);
 
+        tabla.getColumn("Nombre").setPreferredWidth(150);
         filas[0] = "Nombre";
         filas[1] = "Marca";
         filas[2] = "Cantidad";

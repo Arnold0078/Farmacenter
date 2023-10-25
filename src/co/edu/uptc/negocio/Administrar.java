@@ -2,6 +2,7 @@ package co.edu.uptc.negocio;
 
 import co.edu.uptc.conexion.Conexion;
 import co.edu.uptc.persistencia.Producto;
+import co.edu.uptc.persistencia.Venta;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 public class Administrar extends Conexion {
 
-    //////////////////////////////////////////// FUNCIONES DEL PROGRAMA ///////////////////////////////////
+    //////////////////////////////////////////// FUNCIONES DEL PRODUCTO ////////////////////////////////////////////
 
     /**
      * Guardamos el producto en la base de datos
@@ -22,18 +23,19 @@ public class Administrar extends Conexion {
         Connection con = getConexion();
         try {
 
-            ps= con.prepareStatement("INSERT INTO productos(nombre, marca, cantidad, precio, codigo) VALUE (?,?,?,?,?)");
+            ps= con.prepareStatement("INSERT INTO productos(nombre, marca, cantidad, precio, codigo, tipo) VALUE (?,?,?,?,?,?)");
             ps.setString(1, producto.getNombre());
             ps.setString(2, producto.getMarca());
             ps.setInt(3, producto.getCantidad());
             ps.setInt(4, producto.getPrecio());
             ps.setInt(5, producto.getCodigo());
+            ps.setString(6,producto.getTipo());
             ps.execute();
-
+            
+           
 
         } catch  (SQLException e) {
-            System.err.println(e);
-
+            System.err.println("ERROR EN GUARDAR DATOS EN LA BASE DE DATOS");
 
         }finally {
             try {
@@ -44,6 +46,8 @@ public class Administrar extends Conexion {
         }
 
     }
+    
+    
 
     /**
      * Busca un producto en la base de datos y lo retorna
@@ -69,6 +73,7 @@ public class Administrar extends Conexion {
                 producto.setCantidad(rs.getInt("cantidad"));
                 producto.setPrecio(rs.getInt("precio"));
                 producto.setCodigo(rs.getInt("codigo"));
+                producto.setTipo(rs.getString("tipo"));
 
                 return producto;
 
@@ -77,7 +82,7 @@ public class Administrar extends Conexion {
             return null;
 
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println("ERROR EN BUSCAR PRODUCTO EN LA BASE DE DATOS");
 
             return null;
         }finally {
@@ -92,7 +97,7 @@ public class Administrar extends Conexion {
     /**
      * Modificamos la cantidad del uno de los productos
      */
-    public void modificarCantidad(int cantidad, int codigo) {
+    public boolean modificarCantidad(int cantidad, int codigo) {
 
         PreparedStatement ps=null;
         Connection con=getConexion();
@@ -104,9 +109,11 @@ public class Administrar extends Conexion {
             ps.setInt(2, codigo);
 
             ps.execute();
+            return true;
 
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println("ERROR EN MODIFICAR PRODUCTO EN LA BASE DE DATOS");
+            return false;
         }finally {
             try {
                 con.close();
@@ -137,7 +144,7 @@ public class Administrar extends Conexion {
             if (producto.getTipo().equals("COMERCIAL")) {
                 ps2=con.prepareStatement("DELETE FROM productos_comerciales WHERE producto_id = ?");
             } else {
-                ps=con.prepareStatement("DELETE FROM productos_genericos WHERE codigo=?");
+                ps2=con.prepareStatement("DELETE FROM productos_genericos WHERE producto_id=?");
             }
 
             ps2.setInt(1, producto.getId());
@@ -145,7 +152,7 @@ public class Administrar extends Conexion {
             ps.execute();
 
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println("ERROR EN ELIMINAR PRODUCTO EN LA BASE DE DATOS");
         }finally {
             try {
                 con.close();
@@ -154,9 +161,6 @@ public class Administrar extends Conexion {
             }
         }
     }
-    /////////////////////////////////////////// FIN FUNCIONES /////////////////////////////////////////////
-
-    ////////////////////////////////////////////// LISTAS /////////////////////////////////////////////////
 
     /**
      * Retorna todos los productos que hay en la base de datos
@@ -177,6 +181,7 @@ public class Administrar extends Conexion {
                 producto.setCantidad(Integer.parseInt(resultado.getString("cantidad")));
                 producto.setPrecio(Integer.parseInt(resultado.getString("precio")));
                 producto.setCodigo(Integer.parseInt(resultado.getString("codigo")));
+                producto.setTipo(resultado.getNString("tipo"));
 
                 lista.add(producto);
             }
@@ -194,67 +199,31 @@ public class Administrar extends Conexion {
         }
     }
 
-    /**
-     * Retorna todos los productos genericos
-     */
-    public ArrayList<Producto> listaGenericos(){
+    ////////////////////////////////////////// FIN FUNCIONES PRODUCTO /////////////////////////////////////////////
+
+    ///////////////////////////////////////////// FUNCIONES VENTAS ////////////////////////////////////////////////
+
+    public void nuevaVenta (Producto producto, int cantidad){
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Connection con = getConexion();
-
         try {
-            ArrayList<Producto> lista = new ArrayList<Producto>();
-            ps = con.prepareStatement("SELECT * FROM productos_genericos");
-            rs = ps.executeQuery();
 
-            while (rs.next()){
-                Producto producto = new Producto();
-                producto.setNombre(rs.getString("producto_id"));
-                lista.add(producto);
-            }
-            return lista;
+            ps = con.prepareStatement("INSERT INTO ventas(codigo, nombre_producto, cantidad) VALUES (?,?,?)");
+            ps.setInt(1, producto.getCodigo());
+            ps.setString(2, producto.getNombre());
+            ps.setInt(3, cantidad);
+            ps.execute();
+
         }catch (SQLException e){
-            System.err.println(e);
-            return null;
+            System.out.println("ERROR GUARDANDO LA NUEVA VENTA EN LA BASE DE DATOS");
         }finally {
             try {
                 con.close();
             }catch (SQLException e){
-                System.err.println(e);
+                System.out.println(e);
             }
         }
     }
 
-    /**
-     * retorna todos los productos comerciales
-     */
-    public ArrayList<Producto> listaComerciales(){
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        Connection con = getConexion();
-
-        try {
-            ArrayList<Producto> lista = new ArrayList<Producto>();
-            ps = con.prepareStatement("SELECT * FROM productos_genericos");
-            rs = ps.executeQuery();
-
-            while (rs.next()){
-                Producto producto = new Producto();
-                producto.setNombre(rs.getString("producto_id"));
-                lista.add(producto);
-            }
-            return lista;
-        }catch (SQLException e){
-            System.err.println(e);
-            return null;
-        }finally {
-            try {
-                con.close();
-            }catch (SQLException e){
-                System.err.println(e);
-            }
-        }
-    }
-
-    ///////////////////////////////////////FINAL LISTAS//////////////////////////////////////////////////
+    ////////////////////////////////////////// FIN FUNCIONES VENTAS ///////////////////////////////////////////////
 }

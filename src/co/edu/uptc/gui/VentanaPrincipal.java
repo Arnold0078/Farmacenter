@@ -1,10 +1,11 @@
 package co.edu.uptc.gui;
 
-import co.edu.uptc.gui.paneles.PanelRegistro;
 import co.edu.uptc.gui.tablas.TablaComerciales;
 import co.edu.uptc.gui.tablas.TablaGeneral;
 import co.edu.uptc.gui.tablas.TablaGenericos;
 import co.edu.uptc.negocio.Administrar;
+import co.edu.uptc.persistencia.Producto;
+import co.edu.uptc.persistencia.Venta;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,13 +22,13 @@ public class VentanaPrincipal extends JFrame {
         setTitle("Farmacenter");
 
         Administrar administrar = new Administrar();
-        Eventos eventos = new Eventos(this, administrar);
+        PanelRegistro panelRegistro = new PanelRegistro(administrar);
+        Eventos eventos = new Eventos(this, administrar, panelRegistro);
 
         JPanel panel1 = new JPanel();
         panel1.setBackground(new Color(100,200,200));
         panel1.setBorder(new TitledBorder("Registrar producto"));
         panel1.setLayout(new BorderLayout());
-        PanelRegistro panelRegistro = new PanelRegistro(administrar);
         Botones botones = new Botones(eventos);
         panel1.add(panelRegistro, BorderLayout.CENTER);
         panel1.add(botones, BorderLayout.SOUTH);
