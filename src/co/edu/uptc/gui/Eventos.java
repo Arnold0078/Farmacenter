@@ -68,11 +68,27 @@ public class Eventos implements ActionListener {
 
             try {
 
+                int codigo= Integer.parseInt(JOptionPane.showInputDialog(null,"por favor ingresar el codigo del producto",null,JOptionPane.INFORMATION_MESSAGE));
+
+                if(administrar.buscarProducto(codigo)!=null) {
+                    Producto producto= administrar.buscarProducto(codigo);
+
+                    int agregarCantidad =Integer.parseInt(JOptionPane.showInputDialog(null,"porfavor ingrese la cantidad de unidades",null,JOptionPane.INFORMATION_MESSAGE));
+
+                    int total=producto.getCantidad() + agregarCantidad;
+
+                    administrar.modificarCantidad(total, codigo);
+
+                    JOptionPane.showMessageDialog(null,"SE HAN AÑADIDO NUEVOS PRODUCTOS",null,JOptionPane.INFORMATION_MESSAGE);
+
+                }else {
+                    JOptionPane.showMessageDialog(null,"no se ha encontrado el producto",null,JOptionPane.ERROR_MESSAGE);
+                }
+
 
             } catch (Exception e2) {
-                // TODO: handle exception
+                JOptionPane.showMessageDialog(null,"ingrese unicamente dato numericos",null,JOptionPane.ERROR_MESSAGE);
             }
-
 
         } else if (decision.equals(VENDERPRODUCTO)) {
             try {
