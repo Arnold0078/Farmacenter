@@ -20,7 +20,7 @@ public class Botones extends JPanel {
         add(buscar);
 
         JButton agregarUnidades = new JButton(Eventos.AGREGARUNIDADES);
-        agregarUnidades.setActionCommand(Eventos.BUSCAR);
+        agregarUnidades.setActionCommand(Eventos.AGREGARUNIDADES);
         agregarUnidades.addActionListener(eventos);
         add(agregarUnidades);
 
@@ -30,8 +30,13 @@ public class Botones extends JPanel {
         add(venderProducto);
 
         JButton eliminarProducto = new JButton(Eventos.ELIMINARPRODUCTO);
-        venderProducto.setActionCommand(Eventos.ELIMINARPRODUCTO);
-        venderProducto.addActionListener(eventos);
+        eliminarProducto.setActionCommand(Eventos.ELIMINARPRODUCTO);
+        eliminarProducto.addActionListener(eventos);
         add(eliminarProducto);
+        
+        JButton listaVentas= new JButton(Eventos.LISTAVENTAS);
+        listaVentas.setActionCommand(Eventos.LISTAVENTAS);
+        listaVentas.addActionListener(eventos);
+        add(listaVentas);
     }
 }

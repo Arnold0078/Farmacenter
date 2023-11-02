@@ -206,12 +206,14 @@ public class Administrar extends Conexion {
     public void nuevaVenta (Producto producto, int cantidad){
         PreparedStatement ps = null;
         Connection con = getConexion();
+        System.out.println(cantidad);
         try {
 
-            ps = con.prepareStatement("INSERT INTO ventas(codigo, nombre_producto, cantidad) VALUES (?,?,?)");
+            ps = con.prepareStatement("INSERT INTO ventas(codigo, nombre_producto, cantidad) VALUE (?,?,?)");
             ps.setInt(1, producto.getCodigo());
             ps.setString(2, producto.getNombre());
             ps.setInt(3, cantidad);
+            System.out.println(producto.getCodigo()+" "+ producto.getNombre());
             ps.execute();
 
         }catch (SQLException e){
@@ -224,6 +226,43 @@ public class Administrar extends Conexion {
             }
         }
     }
+    
+    public ArrayList<Venta> ListaVentas(){
+    	ArrayList<Venta> listaVentas =new ArrayList();
+    	
+    	PreparedStatement ps=null;
+    	ResultSet resultado=null;
+    	Connection con= getConexion();
+    	
+    	try {
+    		ps= con.prepareStatement("SELECT * FROM ventas ");
+    		resultado= ps.executeQuery();
+    		while(resultado.next()) {
+    			Venta venta = new Venta();
+    			venta.setId(resultado.getInt("id_venta"));
+    			venta.setCantidad(resultado.getInt("cantidad"));
+    			venta.setCodigo(resultado.getInt("codigo"));
+    			venta.setNombreProducto(resultado.getString("nombre_producto"));
+    			listaVentas.add(venta);
+    		}
+    		
+    		return listaVentas;
+			
+		} catch (SQLException e) {
+			System.out.println("ERROR RETORNANDO LISTA DE VENTAS EN LA BASE DE DATOS");
+			
+			return null;
+		}finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				System.out.println(e);
+			}
+		}
+    	
+    	
+    }
+    
 
     ////////////////////////////////////////// FIN FUNCIONES VENTAS ///////////////////////////////////////////////
 }

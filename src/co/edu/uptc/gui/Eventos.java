@@ -17,6 +17,7 @@ public class Eventos implements ActionListener {
     public static final String AGREGARUNIDADES = "AGREGAR UNIDADES";
     public static final String VENDERPRODUCTO = "VENDER PRODUCTO";
     public static final String ELIMINARPRODUCTO = "ELIMINAR PRODUCTO";
+    public static final String LISTAVENTAS="LISTA DE VENTAS";
 
 
     private VentanaPrincipal ventanaPrincipal;
@@ -78,8 +79,11 @@ public class Eventos implements ActionListener {
                     int total=producto.getCantidad() + agregarCantidad;
 
                     administrar.modificarCantidad(total, codigo);
-
+                    ventanaPrincipal.setVisible(false);
+                    VentanaPrincipal ventanaPrincipal=new VentanaPrincipal();
+                    
                     JOptionPane.showMessageDialog(null,"SE HAN AÑADIDO NUEVOS PRODUCTOS",null,JOptionPane.INFORMATION_MESSAGE);
+                    ventanaPrincipal.setVisible(true);
 
                 }else {
                     JOptionPane.showMessageDialog(null,"no se ha encontrado el producto",null,JOptionPane.ERROR_MESSAGE);
@@ -100,7 +104,7 @@ public class Eventos implements ActionListener {
 
                     if (producto.getCantidad() >= cantidad) {
                         administrar.modificarCantidad((producto.getCantidad() - cantidad), codigo);
-                        administrar.nuevaVenta(producto, (producto.getCantidad() + cantidad));
+                        administrar.nuevaVenta(producto,cantidad);
                         JOptionPane.showMessageDialog(null, "Producto vendido", null, JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, "cantidad no disponible ", null, JOptionPane.WARNING_MESSAGE);
@@ -126,6 +130,9 @@ public class Eventos implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Producto no encontrado", null, JOptionPane.WARNING_MESSAGE);
             }
 
+        }else if(decision.equals(LISTAVENTAS)) {
+        	VentanaTabla ventanaTabla = new VentanaTabla(administrar);
+        	ventanaTabla.setVisible(true);
         }
     }
 }

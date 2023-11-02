@@ -11,13 +11,10 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal extends ModeloVentana {
 
     public VentanaPrincipal() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/logo.png"));
         setLayout(new GridLayout(1, 2));
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Farmacenter");
 
