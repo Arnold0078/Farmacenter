@@ -1,53 +1,46 @@
 package co.edu.uptc.gui.ventanas;
 
-import co.edu.uptc.gui.Botones;
-import co.edu.uptc.gui.Eventos;
-import co.edu.uptc.gui.PanelRegistro;
-import co.edu.uptc.gui.tablas.TablaComerciales;
-import co.edu.uptc.gui.tablas.TablaGeneral;
-import co.edu.uptc.gui.tablas.TablaGenericos;
-import co.edu.uptc.negocio.Administrar;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class VentanaPrincipal extends ModeloVentana {
+import co.edu.uptc.gui.Eventos;
+import co.edu.uptc.gui.botones.BotonesInicio;
+import co.edu.uptc.negocio.Administrar;
+import co.edu.uptc.gui.paneles.PanelUsuarios;
 
-    public VentanaPrincipal() {
-        setLayout(new GridLayout(1, 2));
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Farmacenter");
+import javax.swing.*;
 
-        Administrar administrar = new Administrar();
-        PanelRegistro panelRegistro = new PanelRegistro(administrar);
-        Eventos eventos = new Eventos(this, administrar, panelRegistro);
+public class VentanaPrincipal extends ModeloVentana{
+	
+	private VentanaAdministrador ventanaA;
+	private Administrar administrar;
+	private Eventos eventos;
+	private PanelUsuarios panelUsuarios;
+	
+	public VentanaPrincipal() {
+		setLayout(new BorderLayout());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        JPanel panel1 = new JPanel();
-        panel1.setBackground(new Color(100,200,200));
-        panel1.setBorder(new TitledBorder("Registrar producto"));
-        panel1.setLayout(new BorderLayout());
-        Botones botones = new Botones(eventos);
-        panel1.add(panelRegistro, BorderLayout.CENTER);
-        panel1.add(botones, BorderLayout.SOUTH);
-        add(panel1);
+		JPanel fondo = new JPanel();
+		fondo.setBackground(new Color(100, 200, 200));
+		fondo.setLayout(new BorderLayout());
 
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(3, 1));
-        TablaGeneral tablaGeneral = new TablaGeneral(administrar);
-        TablaComerciales tablaComerciales = new TablaComerciales(administrar);
-        TablaGenericos tablaGenericos = new TablaGenericos(administrar);
-        panel2.add(tablaGeneral);
-        panel2.add(tablaComerciales);
-        panel2.add(tablaGenericos);
-        add(panel2);
-    }
+		administrar = new Administrar();
+		panelUsuarios = new PanelUsuarios();
+		eventos = new Eventos(this, administrar);
+		BotonesInicio botones = new BotonesInicio(eventos);
 
-    /**
-     * Inicializamos el programa
-     */
-    public static void main(String[] args) {
-        VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
-        ventanaPrincipal.setVisible(true);
-    }
+		fondo.add(panelUsuarios, BorderLayout.CENTER);
+		fondo.add(botones, BorderLayout.SOUTH);
+
+		add(fondo);
+	}
+	
+	
+	
+	
+public static void main(String[] args) {
+	VentanaPrincipal ventanaInicio= new VentanaPrincipal();
+	ventanaInicio.setVisible(true);
+}
+
 }

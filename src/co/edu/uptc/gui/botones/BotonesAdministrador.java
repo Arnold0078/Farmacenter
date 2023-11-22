@@ -1,11 +1,14 @@
-package co.edu.uptc.gui;
+package co.edu.uptc.gui.botones;
 
 import javax.swing.*;
+
+import co.edu.uptc.gui.Eventos;
+
 import java.awt.*;
 
-public class Botones extends JPanel {
+public class BotonesAdministrador extends JPanel {
 
-    public Botones(Eventos eventos){
+    public BotonesAdministrador(Eventos eventos){
         setOpaque(false);
         setLayout(new GridLayout(2,3));
 
@@ -23,11 +26,6 @@ public class Botones extends JPanel {
         agregarUnidades.setActionCommand(Eventos.AGREGARUNIDADES);
         agregarUnidades.addActionListener(eventos);
         add(agregarUnidades);
-
-        JButton venderProducto = new JButton(Eventos.VENDERPRODUCTO);
-        venderProducto.setActionCommand(Eventos.VENDERPRODUCTO);
-        venderProducto.addActionListener(eventos);
-        add(venderProducto);
 
         JButton eliminarProducto = new JButton(Eventos.ELIMINARPRODUCTO);
         eliminarProducto.setActionCommand(Eventos.ELIMINARPRODUCTO);

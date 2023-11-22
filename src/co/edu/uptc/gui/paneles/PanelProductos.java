@@ -1,4 +1,4 @@
-package co.edu.uptc.gui;
+package co.edu.uptc.gui.paneles;
 
 import co.edu.uptc.negocio.Administrar;
 import co.edu.uptc.persistencia.Producto;
@@ -6,7 +6,7 @@ import co.edu.uptc.persistencia.Producto;
 import javax.swing.*;
 import java.awt.*;
 
-public class PanelRegistro extends JPanel{
+public class PanelProductos extends JPanel{
 
     private final JTextField jxNombre;
     private final JTextField jxMarca;
@@ -16,7 +16,7 @@ public class PanelRegistro extends JPanel{
     private final JTextField jxTipo;
     private final Administrar administrar;
 
-    public PanelRegistro(Administrar administrar){
+    public PanelProductos(Administrar administrar){
         setLayout(new GridLayout(6,2));
         setOpaque(false);
 
