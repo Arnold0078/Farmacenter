@@ -10,27 +10,19 @@ public class ModeloTabla extends JPanel {
     private JTable tabla;
     private DefaultTableModel modelo;
     private Object[] filas;
+    private JScrollPane scrollPane;
+    private String[] filasp= {"Nombre", "Marca", "Cantidad", "Precio", "Codigo"};
 
-    public ModeloTabla(){
+    public ModeloTabla(int columna){
 
         tabla = new JTable();
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel(filasp,columna);
+        scrollPane = new JScrollPane(tabla);
         filas = new Object[5];
 
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Marca");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Codigo");
         tabla.setModel(modelo);
 
         tabla.getColumn("Nombre").setPreferredWidth(150);
-        filas[0] = "Nombre";
-        filas[1] = "Marca";
-        filas[2] = "Cantidad";
-        filas[3] = "Precio";
-        filas[4] = "Codigo";
-        modelo.addRow(filas);
     }
 
     public void guardarDatos(String d1, String d2, int d3, int d4, int d5){
@@ -43,6 +35,6 @@ public class ModeloTabla extends JPanel {
     }
 
     public void añadirTabla(){
-        add(tabla);
+        add(scrollPane);
     }
 }

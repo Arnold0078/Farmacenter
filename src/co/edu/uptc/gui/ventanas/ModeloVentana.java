@@ -1,4 +1,4 @@
-package co.edu.uptc.gui;
+package co.edu.uptc.gui.ventanas;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -11,6 +11,7 @@ public class ModeloVentana extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/logo.png"));
 		setSize(1000, 600);
 		setLocationRelativeTo(null);
+		setResizable(false);
 	}
 
 }

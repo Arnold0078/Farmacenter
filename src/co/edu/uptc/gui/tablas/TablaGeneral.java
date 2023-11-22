@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class TablaGeneral extends ModeloTabla{
 
     public TablaGeneral(Administrar administrar){
+        super(administrar.listaProductos().size());
         setBorder(new TitledBorder("Productos"));
         setBackground(new Color(0,175,200));
         ArrayList<Producto> lista = administrar.listaProductos();

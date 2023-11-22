@@ -1,11 +1,12 @@
-package co.edu.uptc.gui;
+package co.edu.uptc.gui.ventanas;
 
+import co.edu.uptc.gui.Botones;
+import co.edu.uptc.gui.Eventos;
+import co.edu.uptc.gui.PanelRegistro;
 import co.edu.uptc.gui.tablas.TablaComerciales;
 import co.edu.uptc.gui.tablas.TablaGeneral;
 import co.edu.uptc.gui.tablas.TablaGenericos;
 import co.edu.uptc.negocio.Administrar;
-import co.edu.uptc.persistencia.Producto;
-import co.edu.uptc.persistencia.Venta;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

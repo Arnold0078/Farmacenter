@@ -1,9 +1,10 @@
 package co.edu.uptc.gui;
 
+import co.edu.uptc.gui.ventanas.VentanaPrincipal;
+import co.edu.uptc.gui.ventanas.VentanaTabla;
 import co.edu.uptc.negocio.Administrar;
 
 import co.edu.uptc.persistencia.Producto;
-import co.edu.uptc.persistencia.Venta;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

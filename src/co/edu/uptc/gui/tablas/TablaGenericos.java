@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class TablaGenericos extends ModeloTabla{
 
     public TablaGenericos(Administrar administrar){
+        super(obtenerLongitud(administrar));
         setBorder(new TitledBorder("Productos Genericos"));
         setBackground(new Color(0,150,200));
         ArrayList<Producto> lista = administrar.listaProductos();
@@ -22,5 +23,15 @@ public class TablaGenericos extends ModeloTabla{
         }
 
         añadirTabla();
+    }
+
+    public static int obtenerLongitud(Administrar administrar) {
+        ArrayList<Producto> lista = new ArrayList<>();
+        for(Producto p : administrar.listaProductos()) {
+            if (p.getTipo().equals("GENERICOS")) {
+                lista.add(p);
+            }
+        }
+        return lista.size();
     }
 }
