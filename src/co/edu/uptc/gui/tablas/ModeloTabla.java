@@ -1,9 +1,7 @@
 package co.edu.uptc.gui.tablas;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 
 public class ModeloTabla extends JPanel {
 
@@ -13,10 +11,9 @@ public class ModeloTabla extends JPanel {
     private JScrollPane scrollPane;
     private String[] filasp= {"Nombre", "Marca", "Cantidad", "Precio", "Codigo"};
 
-    public ModeloTabla(int columna){
-
+    public ModeloTabla(){
         tabla = new JTable();
-        modelo = new DefaultTableModel(filasp,columna);
+        modelo = new DefaultTableModel(filasp,0);
         scrollPane = new JScrollPane(tabla);
         filas = new Object[5];
 
@@ -34,7 +31,11 @@ public class ModeloTabla extends JPanel {
         modelo.addRow(filas);
     }
 
-    public void añadirTabla(){
+    public void borrar(int posicion){
+        modelo.removeRow(posicion);
+    }
+
+    public void añadir(){
         add(scrollPane);
     }
 }

@@ -2,6 +2,7 @@ package co.edu.uptc.negocio;
 
 import co.edu.uptc.conexion.Conexion;
 import co.edu.uptc.persistencia.Producto;
+import co.edu.uptc.persistencia.Usuario;
 import co.edu.uptc.persistencia.Venta;
 
 import java.sql.Connection;
@@ -11,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Administrar extends Conexion {
+
+    public Usuario sesionActualU;
 
     //////////////////////////////////////////// FUNCIONES DEL PRODUCTO ////////////////////////////////////////////
 
@@ -129,7 +132,7 @@ public class Administrar extends Conexion {
      * Eliminamos un producto en la base de datos
      */
 
-    public void eliminarProducto(Producto producto ) {
+    public void eliminarProducto(Producto producto) {
 
         PreparedStatement ps=null;
         PreparedStatement ps2=null;
@@ -137,18 +140,9 @@ public class Administrar extends Conexion {
 
 
         try {
-
             ps=con.prepareStatement("DELETE FROM productos WHERE codigo=?");
             ps.setInt(1, producto.getCodigo());
 
-            if (producto.getTipo().equals("COMERCIAL")) {
-                ps2=con.prepareStatement("DELETE FROM productos_comerciales WHERE producto_id = ?");
-            } else {
-                ps2=con.prepareStatement("DELETE FROM productos_genericos WHERE producto_id=?");
-            }
-
-            ps2.setInt(1, producto.getId());
-            ps2.execute();
             ps.execute();
 
         } catch (SQLException e) {
@@ -265,4 +259,104 @@ public class Administrar extends Conexion {
     
 
     ////////////////////////////////////////// FIN FUNCIONES VENTAS ///////////////////////////////////////////////
+
+    public void registrarUsuario(Usuario usuario) {
+
+        PreparedStatement ps = null;
+        Connection con = getConexion();
+        try {
+
+            if(usuario.getTipo() ==null) {//VERIFICA SI EL USUARIO A REGISTRAR ES UN CLIENTE
+
+                if (usuario.getCelular() == 0){//VERIFICA SI EL CLIENTE AÑADIO UN NUMERO DE CELULAR
+
+                    ps= con.prepareStatement("INSERT INTO usuarios(cedula, nombre, contraseña, correo) VALUE (?,?,?,?)");
+                }else {
+                    ps= con.prepareStatement("INSERT INTO usuarios(cedula, nombre, contraseña, correo, celular) VALUE (?,?,?,?,?)");
+                }
+
+
+            }else {
+                if (usuario.getCelular() == 0){//VERIFICA SI EL ADMINISTRADOR AÑADIO UN NUMERO DE CELULAR
+                    ps= con.prepareStatement("INSERT INTO usuarios(cedula, nombre, contraseña, correo, tipo) VALUE (?,?,?,?,?)");
+                    ps.setString(5, usuario.getTipo());
+                }else {
+                    ps= con.prepareStatement("INSERT INTO usuarios(cedula, nombre, contraseña, correo, celular,tipo) VALUE (?,?,?,?,?,?)");
+                    ps.setString(6, usuario.getTipo());
+                }
+            }
+
+            if (usuario.getCelular() == 0){//VERIFICA SI HAY UN NUMERO DE CELULAR A REGISTRAR
+                ps.setInt(1, usuario.getCedula());
+                ps.setString(2, usuario.getNombre());
+                ps.setString(3, usuario.getContraseña());
+                ps.setString(4, usuario.getCorreo());
+            }else {
+                ps.setInt(1, usuario.getCedula());
+                ps.setString(2, usuario.getNombre());
+                ps.setString(3, usuario.getContraseña());
+                ps.setString(4, usuario.getCorreo());
+                ps.setInt(5, usuario.getCelular());
+            }
+
+            ps.execute();
+
+        } catch (Exception e) {
+            System.err.println("ERROR EN REGISTRAR USUARIO EN LA BASE DE DATOS");
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+
+
+    public Usuario buscarUsuario(int cedula, String contraseña) {
+
+        PreparedStatement ps =null;
+        ResultSet rs =null;
+        Connection con = getConexion();
+
+        try {
+            if (contraseña != null){
+                ps= con.prepareStatement("SELECT * FROM usuarios WHERE cedula = ? AND contraseña = ?  ");
+                ps.setInt(1,cedula);
+                ps.setString(2, contraseña);
+            }else {
+                ps= con.prepareStatement("SELECT * FROM usuarios WHERE cedula = ? ");
+                ps.setInt(1,cedula);
+            }
+
+            rs = ps.executeQuery();
+
+            if(rs.next()) {
+                Usuario usuarios= new Usuario();
+                usuarios.setCedula(rs.getInt("cedula"));
+                usuarios.setNombre(rs.getString("nombre"));
+                usuarios.setContraseña(rs.getString("contraseña"));
+                usuarios.setCorreo(rs.getString("correo"));
+                usuarios.setCelular(rs.getInt("celular"));
+                usuarios.setTipo(rs.getString("tipo"));
+
+                return usuarios;
+
+            }
+
+            return null;
+
+        } catch (SQLException e) {
+            System.err.println("ERROR EN BUSCAR USUARIO EN LA BASE DE DATOS");
+
+            return null;
+        }finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.err.println(e);
+            }
+        }
+    }
+
 }

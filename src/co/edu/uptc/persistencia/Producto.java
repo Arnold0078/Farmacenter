@@ -2,21 +2,12 @@ package co.edu.uptc.persistencia;
 
 public class Producto {
 
-    private int id;
     private String nombre;
     private String marca;
     private int cantidad;
     private int precio;
     private int codigo;
     private String tipo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getPrecio() {
         return precio;

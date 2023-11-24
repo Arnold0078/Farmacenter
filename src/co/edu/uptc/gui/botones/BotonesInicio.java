@@ -7,29 +7,22 @@ import javax.swing.JPanel;
 
 import co.edu.uptc.gui.Eventos;
 
-public class BotonesInicio extends JPanel{
-	
-public BotonesInicio(Eventos eventos) {
-	setLayout(new GridLayout(1,3));
-	setOpaque(false);
+public class BotonesInicio extends ModeloBotones {
 
-	JButton registrarUsuario = new JButton(Eventos.REGISTRARUSUARIO);
-	registrarUsuario.setActionCommand(Eventos.REGISTRARUSUARIO);
-	registrarUsuario.addActionListener(eventos);
-	add(registrarUsuario);
+	public BotonesInicio(Eventos eventos) {
+		setLayout(new GridLayout(1, 3));
+		setOpaque(false);
 
-	JButton usuarios =new JButton(Eventos.USUARIOS);
-	usuarios.setActionCommand(Eventos.USUARIOS);
-	usuarios.addActionListener(eventos);
-	add(usuarios);
+		//BOTONES
+		JButton registrarUsuario = botonNuevo(eventos, Eventos.REGISTRARUSUARIO);
+		JButton usuarios = botonNuevo(eventos, Eventos.USUARIOS);
+		JButton administrador = botonNuevo(eventos, Eventos.ADMINISTRADOR);
 
-	JButton administrador = new JButton(Eventos.ADMINISTRADOR);
-	administrador.setActionCommand(Eventos.ADMINISTRADOR);
-	administrador.addActionListener(eventos);
-	add(administrador);
-	
-}
-	
+		//AÑADIMOS
+		add(registrarUsuario);
+		add(usuarios);
+		add(administrador);
+	}
 
 }
 

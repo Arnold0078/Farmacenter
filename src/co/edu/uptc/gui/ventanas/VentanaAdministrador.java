@@ -17,43 +17,78 @@ public class VentanaAdministrador extends ModeloVentana {
 
     private Administrar administrar;
     private PanelProductos panelRegistro;
+    private Eventos eventos;
+    private TablaGeneral tablaGeneral;
+    private TablaGenericos tablaGenericos;
+    private TablaComerciales tablaComerciales;
+
     public VentanaAdministrador(Eventos eventos, Administrar administrar) {
         setLayout(new GridLayout(1, 2));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Farmacenter");
+        setTitle("Farmacenter/Administrador");
 
         this.administrar = administrar;
+        this.eventos = eventos;
         panelRegistro = new PanelProductos(administrar);
 
-        JPanel panel1 = new JPanel();
-        panel1.setBackground(new Color(100, 200, 200));
-        panel1.setBorder(new TitledBorder("Registrar producto"));
-        panel1.setLayout(new BorderLayout());
-        BotonesAdministrador botones = new BotonesAdministrador(eventos);
-        panel1.add(panelRegistro, BorderLayout.CENTER);
-        panel1.add(botones, BorderLayout.SOUTH);
-        add(panel1);
-
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayout(3, 1));
-        TablaGeneral tablaGeneral = new TablaGeneral(administrar);
-        TablaComerciales tablaComerciales = new TablaComerciales(administrar);
-        TablaGenericos tablaGenericos = new TablaGenericos(administrar);
-        panel2.add(tablaGeneral);
-        panel2.add(tablaComerciales);
-        panel2.add(tablaGenericos);
-        add(panel2);
+        add(registro());
+        add(tablas());
     }
 
     /**
      * Verificamos si el producto a registrar es apto para la base de datos
      */
     public void registrarProducto (){
-        if (panelRegistro.obtenerProducto() != null) {
-            Producto nuevo = panelRegistro.obtenerProducto();
+        Producto nuevo = panelRegistro.obtenerProducto();
+        if (nuevo != null) {
             administrar.guardarProducto(nuevo);
             panelRegistro.limpiarJTextFields();
+
+            //Agregando a las tablas de los productos
+            tablaGeneral.guardarDato(nuevo);
+            if(nuevo.getTipo().equals("COMERCIAL")) {
+                tablaComerciales.guardarDato(nuevo);
+            }else {
+                tablaGenericos.guardarDato(nuevo);
+            }
+
             JOptionPane.showMessageDialog(null, "Producto registrado", null, JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private JLabel registro(){
+        JLabel izquierda = new JLabel();
+        izquierda.setBackground(new Color(100, 200, 200));
+        izquierda.setBorder(new TitledBorder("Registrar producto"));
+        izquierda.setLayout(new BorderLayout());
+        BotonesAdministrador botones = new BotonesAdministrador(eventos);
+        izquierda.add(panelRegistro, BorderLayout.CENTER);
+        izquierda.add(botones, BorderLayout.SOUTH);
+        return izquierda;
+    }
+
+    private JLabel tablas(){
+        JLabel derecha = new JLabel();
+        derecha.setLayout(new GridLayout(3, 1));
+        tablaGeneral = new TablaGeneral(administrar);
+        tablaComerciales = new TablaComerciales(administrar);
+        tablaGenericos = new TablaGenericos(administrar);
+        JScrollPane jsGeneral = new JScrollPane(tablaGeneral);
+        JScrollPane jsComerciales = new JScrollPane(tablaComerciales);
+        JScrollPane jsGenericos = new JScrollPane(tablaGenericos);
+        derecha.add(jsGeneral);
+        derecha.add(jsComerciales);
+        derecha.add(jsGenericos);
+        return derecha;
+    }
+
+    public void eliminarProductoTabla(Producto producto){
+        tablaGeneral.borrarDato(producto);
+
+        if (producto.getTipo().equals("COMERCIAL")){
+            tablaComerciales.guardarDato(producto);
+        }else {
+            tablaGenericos.borrarDato(producto);
         }
     }
 }

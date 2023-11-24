@@ -9,17 +9,30 @@ import java.util.ArrayList;
 
 public class TablaGeneral extends ModeloTabla{
 
+    ArrayList<Producto> lista;
+
     public TablaGeneral(Administrar administrar){
-        super(administrar.listaProductos().size());
         setBorder(new TitledBorder("Productos"));
         setBackground(new Color(0,175,200));
-        ArrayList<Producto> lista = administrar.listaProductos();
+        lista = administrar.listaProductos();
 
         for (Producto producto: lista) {
             guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
 
         }
 
-        añadirTabla();
+        añadir();
+    }
+
+    public void guardarDato(Producto producto){
+        guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
+    }
+
+    public void borrarDato(Producto producto){
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getCodigo() == producto.getCodigo()){
+                borrar(i);
+            }
+        }
     }
 }

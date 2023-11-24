@@ -6,7 +6,7 @@ public class Usuario {
     private int Cedula;
     private String Contraseña;
     private String Correo;
-    private int celular;
+    private int celular = 0;
     private String tipo;
 
     public String getNombre() {

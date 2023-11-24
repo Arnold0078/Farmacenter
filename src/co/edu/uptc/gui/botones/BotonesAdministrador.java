@@ -6,35 +6,26 @@ import co.edu.uptc.gui.Eventos;
 
 import java.awt.*;
 
-public class BotonesAdministrador extends JPanel {
+public class BotonesAdministrador extends ModeloBotones {
 
     public BotonesAdministrador(Eventos eventos){
         setOpaque(false);
         setLayout(new GridLayout(2,3));
 
-        JButton registrar = new JButton(Eventos.REGISTRAR);
-        registrar.setActionCommand(Eventos.REGISTRAR);
-        registrar.addActionListener(eventos);
+        //BOTONES
+        JButton registrar = botonNuevo(eventos, Eventos.REGISTRAR);
+        JButton buscar = botonNuevo(eventos, Eventos.BUSCAR);
+        JButton agregarUnidades = botonNuevo(eventos, Eventos.AGREGARUNIDADES);
+        JButton eliminarProducto = botonNuevo(eventos, Eventos.ELIMINARPRODUCTO);
+        JButton listaVentas= botonNuevo(eventos, Eventos.LISTAVENTAS);
+        JButton cerrarSesion = botonNuevo(eventos, Eventos.CERRARSESION);
+
+        //AÑADIMOS
         add(registrar);
-
-        JButton buscar = new JButton(Eventos.BUSCAR);
-        buscar.setActionCommand(Eventos.BUSCAR);
-        buscar.addActionListener(eventos);
         add(buscar);
-
-        JButton agregarUnidades = new JButton(Eventos.AGREGARUNIDADES);
-        agregarUnidades.setActionCommand(Eventos.AGREGARUNIDADES);
-        agregarUnidades.addActionListener(eventos);
         add(agregarUnidades);
-
-        JButton eliminarProducto = new JButton(Eventos.ELIMINARPRODUCTO);
-        eliminarProducto.setActionCommand(Eventos.ELIMINARPRODUCTO);
-        eliminarProducto.addActionListener(eventos);
         add(eliminarProducto);
-        
-        JButton listaVentas= new JButton(Eventos.LISTAVENTAS);
-        listaVentas.setActionCommand(Eventos.LISTAVENTAS);
-        listaVentas.addActionListener(eventos);
         add(listaVentas);
+        add(cerrarSesion);
     }
 }

@@ -8,13 +8,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class TablaComerciales extends ModeloTabla{
-    int i = 7;
-    public TablaComerciales (Administrar administrar){
 
-        super(obtenerLongitud(administrar));
+    int i = 7;
+    ArrayList<Producto> lista;
+
+    public TablaComerciales (Administrar administrar){
         setBorder(new TitledBorder("Productos Comerciales"));
         setBackground(new Color(0,160,180));
-        ArrayList<Producto> lista = administrar.listaProductos();
+        lista = administrar.listaProductos();
 
 
         for (Producto producto: lista) {
@@ -23,17 +24,19 @@ public class TablaComerciales extends ModeloTabla{
             }
         }
 
-        añadirTabla();
+        añadir();
     }
 
-    public static int obtenerLongitud(Administrar administrar) {
-        ArrayList<Producto> lista = new ArrayList<>();
-        for(Producto p : administrar.listaProductos()) {
-            if (p.getTipo().equals("COMERCIAL")) {
-                lista.add(p);
+    public void borrarDato(Producto producto){
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getCodigo() == producto.getCodigo()){
+                borrar(i);
             }
         }
-        return lista.size();
+    }
+
+    public void guardarDato(Producto producto){
+        guardarDatos(producto.getNombre(), producto.getMarca(), producto.getCantidad(), producto.getPrecio(), producto.getCodigo());
     }
 
 }

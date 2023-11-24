@@ -62,9 +62,10 @@ public class PanelProductos extends JPanel{
                 nuevo.setPrecio(Integer.parseInt(jxPrecio.getText()));
                 nuevo.setCodigo(Integer.parseInt(jxCodigo.getText()));
                 nuevo.setTipo(jxTipo.getText().toUpperCase());
+                return nuevo;
             }
 
-            return nuevo;
+            return null;
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "Ingrese unicamente numeros en (Cantidad, " +
                     "Precio, Codigo)", null, JOptionPane.WARNING_MESSAGE);
